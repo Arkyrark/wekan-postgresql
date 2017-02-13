@@ -1,4 +1,4 @@
-# Wekan to PostgreSQL read-only mirroring
+# Docker: Wekan to PostgreSQL read-only mirroring
 
 * [Wekan kanban board, made with Meteor.js framework, running on
   Node.js](https://wekan.io) -- [GitHub](https://github.com/wekan/wekan)
