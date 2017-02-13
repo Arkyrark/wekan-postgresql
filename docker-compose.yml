@@ -1,0 +1,70 @@
+version: '2'
+services:
+  torodb-stampede:
+    image: torodb/stampede
+    networks:
+      - wekan-tier
+    links:
+      - postgres
+      - mongodb
+    environment:
+      - POSTGRES_PASSWORD
+      - TORODB_SETUP=true
+      - TORODB_SYNC_SOURCE=mongodb:27017
+      - TORODB_BACKEND_HOST=postgres
+      - TORODB_BACKEND_PORT=5432
+      - TORODB_BACKEND_DATABASE=wekan
+      - TORODB_BACKEND_USER=wekan
+      - TORODB_BACKEND_PASSWORD=wekan
+      - DEBUG
+  postgres:
+    image: postgres:9.6
+    networks:
+      - wekan-tier
+    environment:
+      - POSTGRES_PASSWORD
+    ports:
+      - "15432:5432"
+  mongodb:
+    image: mongo:3.2
+    networks:
+      - wekan-tier
+    ports:
+      - "28017:27017"
+    entrypoint:
+      - /bin/bash
+      - "-c"
+      - mongo --nodb --eval '
+            var db; 
+            while (!db) { 
+                try { 
+                  db = new Mongo("mongodb:27017").getDB("local"); 
+                } catch(ex) {} 
+                sleep(3000); 
+            }; 
+            rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
+        ' 1>/dev/null 2>&1 & 
+        mongod --replSet rs1
+  wekan:
+    image: mquandalle/wekan:latest
+    container_name: wekan-app
+    restart: always
+    networks:
+      - wekan-tier
+    ports:
+      - 80:80
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/wekan
+      - ROOT_URL=http://localhost
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb:
+    driver: local
+  mongodb-dump:
+    driver: local
+
+networks:
+  wekan-tier:
+    driver: bridge
