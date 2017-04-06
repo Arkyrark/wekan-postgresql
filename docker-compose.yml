@@ -46,7 +46,7 @@ services:
         ' 1>/dev/null 2>&1 & 
         mongod --replSet rs1
   wekan:
-    image: mquandalle/wekan:latest
+    image: wekanteam/wekan:meteor-1.4
     container_name: wekan-app
     restart: always
     networks:
