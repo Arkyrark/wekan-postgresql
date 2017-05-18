@@ -1,3 +1,11 @@
+# v0.3 2017-05-18
+
+This release adds following new features:
+
+* Use latest tag of Docker image.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.2 2017-04-06
 
 This release adds following new features:
