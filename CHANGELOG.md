@@ -1,3 +1,11 @@
+# v0.4 2017-08-18
+
+This release fixes following bugs:
+
+* [ToroDB exits because of compound indexes not supported](https://github.com/torodb/stampede/issues/202).
+
+Thanks to GitHub user teoincontatto for contributions.
+
 # v0.3 2017-05-18
 
 This release adds following new features:

@@ -23,27 +23,30 @@ git clone https://github.com/wekan/wekan-postgresql.git
 cd wekan-postgresql
 ```
 
-3) PostgreSQL database name, username and password is wekan . Change in docker-compose.yml .
+3) IMPORTANT: In docker-compose.yml, to use Wekan on local network, change ROOT_URL=http://localhost to http://IPADRESS like http://192.168.10.100 or http://example.com
 
-4) Write:
+4) OPTIONAL: In docker-compose.yml, change PostgreSQL database name, username and password from wekan to something else.
+
+5) Write:
 
 ```bash
 docker-compose up
 ```
 
-5) Wekan is at http://localhost (port 80)
+6) Wekan is at http://IPADDRESS or http://example.com (port 80)
 
-6) PostgreSQL is at address postgresql://127.0.0.1:15432/wekan or other name database
+7) PostgreSQL is at address postgresql://127.0.0.1:15432/wekan or other name database
    that you changed in step 3), and changed username: wekan, password: wekan too.
    Do not write to PostgreSQL, as it's readonly mirror. Write to MongoDB or make
-   changes in Wekan.
+   changes in Wekan. If server port 15432 open, PostgreSQL can be accessed also
+   remotely at local network at http://IPADDRESS:15432/wekan
 
-7) MongoDB is at 127.0.0.1:28017
+8) MongoDB is at 127.0.0.1:28017
 
-8) Wekan and databases bind to address 0.0.0.0 so could be also available to other
+9) Wekan and databases bind to address 0.0.0.0 so could be also available to other
    computers in network. I have not tested this.
 
-9) [Restore your MongoDB data](https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data).
+10) [Restore your MongoDB data](https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data).
 
 ## Feedback
 
