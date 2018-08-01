@@ -56,6 +56,12 @@ services:
     environment:
       - MONGO_URL=mongodb://mongodb:27017/wekan
       - ROOT_URL=http://localhost
+      #---------------------------------------------------------------
+      # == WEKAN API ==
+      # Wekan Export Board works when WITH_API='true'.
+      # If you disable Wekan API, Export Board does not work.
+      - WITH_API='true'
+      #---------------------------------------------------------------
     depends_on:
       - mongodb
 

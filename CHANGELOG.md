@@ -1,3 +1,9 @@
+# v0.5 2018-08-01
+
+* Enable Wekan API by default, so that Export Board works.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.4 2017-08-18
 
 This release fixes following bugs:
