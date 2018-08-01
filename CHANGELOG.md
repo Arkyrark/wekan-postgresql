@@ -1,6 +1,7 @@
 # v0.5 2018-08-01
 
 * Enable Wekan API by default, so that Export Board works.
+* Add Matomo options.
 
 Thanks to GitHub user xet7 for contributions.
 
