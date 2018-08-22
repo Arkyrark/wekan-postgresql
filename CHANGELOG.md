@@ -1,3 +1,9 @@
+# v0.7 2018-08-22
+
+* Add browser-policy, trusted-url and webhooks-settings.
+
+Thanks to GitHub users omarsy and xet7 for their contribution.
+
 # v0.6 2018-08-03
 
 * Update wekan-app container internal port to 8080.
