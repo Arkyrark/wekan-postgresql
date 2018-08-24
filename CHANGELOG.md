@@ -1,3 +1,9 @@
+# v0.8 2018-08-25
+
+* Add OAuth2.
+
+Thanks to GitHub users salleman33 and xet7 for their contributions.
+
 # v0.7 2018-08-22
 
 * Add browser-policy, trusted-url and webhooks-settings.
