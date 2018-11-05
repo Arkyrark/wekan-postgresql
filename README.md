@@ -1,3 +1,7 @@
+# 2018-11-05 MOVED
+
+Newest docker-compose.yml has moved to https://raw.githubusercontent.com/wekan/wekan/edge/docker-compose-postgresql.yml
+
 # Docker: Wekan to PostgreSQL read-only mirroring
 
 * [Wekan kanban board, made with Meteor.js framework, running on
