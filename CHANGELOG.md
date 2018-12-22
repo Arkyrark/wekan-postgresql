@@ -1,3 +1,9 @@
+# v0.9 2018-12-22
+
+* Update docker-compose.yml.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.8 2018-08-25
 
 * Add OAuth2.
