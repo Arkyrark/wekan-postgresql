@@ -1,16 +1,12 @@
-# 2018-11-05 MOVED
-
-Newest docker-compose.yml has moved to https://raw.githubusercontent.com/wekan/wekan/edge/docker-compose-postgresql.yml
-
 # Docker: Wekan to PostgreSQL read-only mirroring
 
 * [Wekan kanban board, made with Meteor.js framework, running on
-  Node.js](https://wekan.io) -- [GitHub](https://github.com/wekan/wekan)
+  Node.js](https://wekan.github.io) -- [GitHub](https://github.com/wekan/wekan)
 * [MongoDB NoSQL database](https://www.mongodb.com)
-* [ToroDB: MongoDB to PostgreSQL read-only mirroring, programmed with Java](https://www.torodb.com) --
-  [GitHub](https://github.com/torodb/torodb) --
+* [ToroDB: MongoDB to PostgreSQL read-only mirroring, programmed with Java](https://www.8kdata.com/products) --
+  [GitHub](https://github.com/torodb/stampede) --
   [Interview at FLOSS Weekly](https://twit.tv/shows/floss-weekly/episodes/377)
-* [LibreOffice 3.5 with native PostgreSQL support](https://www.libreoffice.org)
+* [LibreOffice with native PostgreSQL support](https://www.libreoffice.org)
 
 ## Screenshot
 
@@ -34,13 +30,13 @@ cd wekan-postgresql
 5) Write:
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 6) Wekan is at http://IPADDRESS or http://example.com (port 80)
 
-7) PostgreSQL is at address postgresql://127.0.0.1:15432/wekan or other name database
-   that you changed in step 3), and changed username: wekan, password: wekan too.
+7) PostgreSQL is at address postgresql://127.0.0.1:15432/wekan . or other name database
+   Username: wekan, Password: wekan , or others if you changed those at docker-compose.yml.
    Do not write to PostgreSQL, as it's readonly mirror. Write to MongoDB or make
    changes in Wekan. If server port 15432 open, PostgreSQL can be accessed also
    remotely at local network at http://IPADDRESS:15432/wekan
@@ -56,4 +52,4 @@ docker-compose up
 
 [GitHub issue 787](https://github.com/wekan/wekan/issues/787)
 
-[screenshot]: http://i.imgur.com/tpmY1xH.png
+[screenshot]: https://wekan.github.io/ToroDB.png
