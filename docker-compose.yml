@@ -86,20 +86,13 @@ version: '2'
 #-------------------------------------------------------------------------
 
 services:
-
-  #-----------------------------------------------------------------------------------
-  # ==== OPTIONAL Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only mirroring ====
-  # For reporting with SQL, and accessing with any programming language,
-  # reporting package and Office suite that can connect to PostgreSQL.
-  # https://github.com/wekan/wekan-postgresql
-  #
   torodb-stampede:
-    image: torodb/stampede:1.0.0-SNAPSHOT
+    image: torodb/stampede:latest
     networks:
       - wekan-tier
     links:
       - postgres
-      - wekandb
+      - mongodb
     environment:
       - POSTGRES_PASSWORD
       - TORODB_SETUP=true
@@ -118,7 +111,7 @@ services:
       - POSTGRES_PASSWORD
     ports:
       - "15432:5432"
-  wekandb:
+  mongodb:
     image: mongo:3.2
     networks:
       - wekan-tier
@@ -138,72 +131,19 @@ services:
             rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
-  #---------------------------------------------------------------------------------------
-  #  === FOR ABOVE ToroDB, UNCOMMENTED all of above with wekandb: mongo:3.2 that is only  ===
-  #  === compatible with ToroDB, and COMMENTED OUT all of below wekandb: with mongo:4.0.4 ===
-  #  === and mongo:3.2.21 ===
-  #-----------------------:::--------------------------------------------------------------
-
-  #wekandb:
-  #  #-------------------------------------------------------------------------------------
-  #  # ==== MONGODB AND METEOR VERSION ====
-  #  # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, use mongo 4.x
-  #  image: mongo:4.0.4
-  #  # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
-  #  # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-  #  # image: mongo:3.2.21
-  #  #-------------------------------------------------------------------------------------
-  #  container_name: wekan-db
-  #  restart: always
-  #  command: mongod --smallfiles --oplogSize 128
-  #  networks:
-  #    - wekan-tier
-  #  expose:
-  #    - 27017
-  #  volumes:
-  #    - wekan-db:/data/db
-  #    - wekan-db-dump:/dump
-
   wekan:
-    #-------------------------------------------------------------------------------------
-    # ==== MONGODB AND METEOR VERSION ====
-    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch,
-    #    using https://quay.io/wekan/wekan automatic builds
-    image: quay.io/wekan/wekan:meteor-1.8
-    # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
-    # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    # image: quay.io/wekan/wekan
-    # c) Using specific Meteor 1.6.x version tag:
-    # image: quay.io/wekan/wekan:v1.95
-    # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
-    # image: wekanteam/wekan:meteor-1.8
-    # image: wekanteam/wekan:v1.95
-    #-------------------------------------------------------------------------------------
+    image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:
       - wekan-tier
-    #-------------------------------------------------------------------------------------
-    # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
-    #  args:
-    #    - NODE_VERSION=${NODE_VERSION}
-    #    - METEOR_RELEASE=${METEOR_RELEASE}
-    #    - NPM_VERSION=${NPM_VERSION}
-    #    - ARCHITECTURE=${ARCHITECTURE}
-    #    - SRC_PATH=${SRC_PATH}
-    #    - METEOR_EDGE=${METEOR_EDGE}
-    #    - USE_EDGE=${USE_EDGE}
-    #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
       # For example, if you want to have wekan on port 3001,
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       - 80:8080
     environment:
-      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - MONGO_URL=mongodb://mongodb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -217,7 +157,6 @@ services:
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
       - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
-      #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are required in both MAIL_URL and Admin Panel,
       #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
@@ -520,7 +459,7 @@ services:
       #-------------------------------------------------------------------
 
     depends_on:
-      - wekandb
+      - mongodb
 
 #---------------------------------------------------------------------------------
 # ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
@@ -549,9 +488,9 @@ services:
 #---------------------------------------------------------------------------------
 
 volumes:
-  wekan-db:
+  mongodb:
     driver: local
-  wekan-db-dump:
+  mongodb-dump:
     driver: local
 
 networks:
