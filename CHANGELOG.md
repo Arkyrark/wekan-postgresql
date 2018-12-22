@@ -1,6 +1,8 @@
 # v0.9 2018-12-22
 
-* Update docker-compose.yml.
+* Update docker-compose.yml:
+  * Add more docs and environment settings
+  * Add latest Wekan and ToroDB.
 
 Thanks to GitHub user xet7 for contributions.
 
