@@ -35,7 +35,8 @@ docker-compose up -d
 
 6) Wekan is at http://IPADDRESS or http://example.com (port 80)
 
-7) PostgreSQL is at address postgresql://127.0.0.1:15432/wekan . or other name database
+7) PostgreSQL connection URL for LibreOffice is `dbname=wekan hostaddr=127.0.0.1 port=15432 user=wekan password=wekan`.
+   In some other apps URL could be postgresql://127.0.0.1:15432/wekan , and
    Username: wekan, Password: wekan , or others if you changed those at docker-compose.yml.
    Do not write to PostgreSQL, as it's readonly mirror. Write to MongoDB or make
    changes in Wekan. If server port 15432 open, PostgreSQL can be accessed also

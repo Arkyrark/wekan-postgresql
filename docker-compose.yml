@@ -110,13 +110,13 @@ services:
     environment:
       - POSTGRES_PASSWORD
     ports:
-      - "15432:5432"
+      - "5432:5432"
   mongodb:
     image: mongo:3.2
     networks:
       - wekan-tier
     ports:
-      - "28017:27017"
+      - "27017:27017"
     entrypoint:
       - /bin/bash
       - "-c"
